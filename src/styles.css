@@ -450,3 +450,101 @@ body { min-height: 100%; overscroll-behavior-y: none; }
     bottom: calc(12px + env(safe-area-inset-bottom));
   }
 }
+
+/* Availability mobile layout fixes */
+.availability-form-card {
+  overflow: hidden;
+}
+.availability-calendar-card {
+  overflow: hidden;
+}
+.week-calendar-scroll {
+  max-width: 100%;
+}
+
+@media (max-width: 900px) {
+  .availability-form-card .grid-form {
+    grid-template-columns: 1fr;
+  }
+
+  .availability-form-card .form-actions .primary-btn {
+    width: 100%;
+  }
+
+  .availability-calendar-card .calendar-toolbar {
+    gap: 10px;
+  }
+
+  .availability-calendar-card .calendar-toolbar select {
+    width: 100%;
+  }
+
+  .availability-calendar-card .week-calendar-scroll {
+    overflow-x: visible;
+    padding-bottom: 0;
+  }
+
+  .availability-calendar-card .week-calendar {
+    min-width: 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .availability-calendar-card .time-rail {
+    display: none;
+  }
+
+  .availability-calendar-card .week-day {
+    min-width: 0;
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    overflow: hidden;
+    background: #fffdfa;
+  }
+
+  .availability-calendar-card .week-day-head {
+    height: auto;
+    min-height: 44px;
+    border-radius: 0;
+    padding: 10px 12px;
+  }
+
+  .availability-calendar-card .day-track {
+    height: auto;
+    min-height: 54px;
+    border: 0;
+    border-radius: 0;
+    padding: 10px;
+    display: grid;
+    gap: 8px;
+    background: #fffdfa;
+  }
+
+  .availability-calendar-card .day-track i {
+    display: none;
+  }
+
+  .availability-calendar-card .availability-block {
+    position: relative;
+    top: auto !important;
+    left: auto;
+    right: auto;
+    height: auto !important;
+    min-height: 48px;
+    border-radius: 16px;
+    padding: 11px 42px 11px 12px;
+    overflow: visible;
+  }
+
+  .availability-calendar-card .availability-block strong {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 520px) {
+  .availability-form-card,
+  .availability-calendar-card {
+    padding: 15px;
+  }
+}
