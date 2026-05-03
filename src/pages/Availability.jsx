@@ -68,7 +68,7 @@ export default function Availability() {
     <div className="page">
       <PageHeader title="Availability" subtitle="Set weekly working hours in a mobile calendar view." />
 
-      <Card className="mobile-card compact-card">
+      <Card className="mobile-card compact-card availability-form-card">
         <div className="card-title"><h3>Add availability</h3></div>
         <form className="grid-form mobile-first-form" onSubmit={submit}>
           <ErrorMessage message={error} />
@@ -89,7 +89,7 @@ export default function Availability() {
         </form>
       </Card>
 
-      <Card className="mobile-card">
+      <Card className="mobile-card availability-calendar-card">
         <div className="calendar-toolbar">
           <div>
             <h3>Weekly calendar</h3>
