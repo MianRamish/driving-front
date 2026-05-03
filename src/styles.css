@@ -265,6 +265,55 @@ body { min-height: 100%; overscroll-behavior-y: none; }
 .sheet-backdrop { position: fixed; inset: 0; z-index: 60; background: rgba(0,0,0,.55); display: grid; align-items: end; padding: 14px; }
 .bottom-sheet { width: min(760px, 100%); max-height: min(86vh, 760px); overflow: auto; margin: 0 auto; animation: sheetIn .22s ease both; }
 @keyframes sheetIn { from { transform: translateY(24px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+/* Lesson popup fixes and styling */
+.lesson-sheet-backdrop {
+  align-items: center;
+  padding: 18px;
+  backdrop-filter: blur(8px);
+}
+.lesson-form-sheet {
+  border: 1px solid rgba(220,191,0,.28);
+  box-shadow: 0 28px 80px rgba(0,0,0,.32);
+}
+.lesson-form-sheet .card-title {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  margin: -16px -16px 12px;
+  padding: 16px;
+  background: linear-gradient(180deg, #fff 70%, rgba(255,255,255,.92));
+  border-bottom: 1px solid var(--line);
+}
+.lesson-popup-form label {
+  gap: 7px;
+}
+.lesson-popup-form input,
+.lesson-popup-form select,
+.lesson-popup-form textarea {
+  background: #fffefa;
+  border-color: #ded5a6;
+}
+.lesson-popup-form input:focus,
+.lesson-popup-form select:focus,
+.lesson-popup-form textarea:focus {
+  outline: 3px solid rgba(220,191,0,.22);
+  border-color: var(--primary-dark);
+}
+.lesson-popup-form textarea {
+  min-height: 104px;
+  resize: vertical;
+}
+@media (max-width: 900px) {
+  .lesson-sheet-backdrop {
+    align-items: end;
+    padding: 10px;
+    padding-bottom: calc(10px + env(safe-area-inset-bottom));
+  }
+  .lesson-form-sheet {
+    max-height: min(88vh, 760px);
+  }
+}
 .segmented { display: inline-flex; margin-top: 8px; padding: 4px; border-radius: 999px; background: #f0ead0; }
 .segmented button { border: 0; border-radius: 999px; padding: 7px 12px; background: transparent; font-weight: 900; color: #333; }
 .segmented button.active { background: #111; color: var(--primary); }
@@ -300,4 +349,104 @@ body { min-height: 100%; overscroll-behavior-y: none; }
   .timeline-time { justify-items: start; }
   .timeline-item { grid-template-columns: 1fr; gap: 8px; }
   .timeline-dot { display: none; }
+}
+
+
+/* Mobile overlap/layout fixes */
+@media (max-width: 900px) {
+  .main {
+    padding: 12px 12px calc(148px + env(safe-area-inset-bottom));
+    min-height: 100dvh;
+    background: linear-gradient(#111 0 168px, var(--bg) 168px);
+  }
+
+  .topbar {
+    margin-bottom: 12px;
+  }
+
+  .page {
+    gap: 16px;
+    padding-bottom: calc(28px + env(safe-area-inset-bottom));
+  }
+
+  .page-header {
+    padding: 0 2px 8px;
+  }
+
+  .page-header h2 {
+    line-height: 1.05;
+  }
+
+  .page-header p {
+    margin-top: 7px;
+    line-height: 1.35;
+  }
+
+  .mobile-form-card,
+  .student-list-card,
+  .lesson-calendar-card {
+    position: relative;
+    z-index: 1;
+  }
+
+  .student-form-card {
+    margin-top: 2px;
+  }
+
+  .student-form-card .card-title {
+    margin-bottom: 14px;
+  }
+
+  .student-form-card .grid-form {
+    gap: 13px;
+  }
+
+  .student-form-card input,
+  .student-form-card select,
+  .student-form-card textarea,
+  .lesson-popup-form input,
+  .lesson-popup-form select,
+  .lesson-popup-form textarea {
+    border-radius: 15px;
+  }
+
+  .student-form-card textarea {
+    min-height: 94px;
+  }
+
+  .student-form-card .form-actions {
+    padding-top: 4px;
+  }
+
+  .bottom-nav {
+    z-index: 80;
+  }
+
+  .fab-btn {
+    z-index: 75;
+  }
+
+  .sheet-backdrop {
+    z-index: 90;
+  }
+}
+
+@media (max-width: 520px) {
+  .main {
+    background: linear-gradient(#111 0 172px, var(--bg) 172px);
+  }
+
+  .card {
+    border-radius: 22px;
+  }
+
+  .student-form-card {
+    padding: 15px;
+  }
+
+  .bottom-nav {
+    left: 12px;
+    right: 12px;
+    bottom: calc(12px + env(safe-area-inset-bottom));
+  }
 }
