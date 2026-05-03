@@ -1,8 +1,4 @@
 import React, { useState } from 'react';
-<<<<<<< HEAD
-import { CarFront } from 'lucide-react';
-=======
->>>>>>> ea38a54 (Full rebuild: mobile app UI, calendar, notifications, performance)
 import { useAuth } from '../context/AuthContext.jsx';
 import { ErrorMessage } from '../components/UI.jsx';
 
@@ -25,11 +21,7 @@ export default function Login() {
     <main className="login-page">
       <section className="login-card">
         <div className="login-brand">
-<<<<<<< HEAD
-          <div className="login-icon"><CarFront size={30} /></div>
-=======
           <img className="login-logo" src="https://kudosdrivingschool.co.uk/wp-content/uploads/2025/05/rsz_kudos_new_logo_final_1-01.png" alt="Kudos Driving School" />
->>>>>>> ea38a54 (Full rebuild: mobile app UI, calendar, notifications, performance)
           <div>
             <h1>Kudos Driving School</h1>
             <p>Driving school management app</p>

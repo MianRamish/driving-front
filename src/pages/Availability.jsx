@@ -1,16 +1,10 @@
-<<<<<<< HEAD
-import React, { useEffect, useState } from 'react';
-=======
 import React, { useEffect, useMemo, useState } from 'react';
 import { Trash2 } from 'lucide-react';
->>>>>>> ea38a54 (Full rebuild: mobile app UI, calendar, notifications, performance)
 import api from '../api.js';
 import { Card, EmptyState, ErrorMessage, PageHeader } from '../components/UI.jsx';
 import { useAuth } from '../context/AuthContext.jsx';
 
 const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
-<<<<<<< HEAD
-=======
 const shortDays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 const hours = Array.from({ length: 13 }, (_, index) => 7 + index);
 const toMinutes = (time) => {
@@ -24,16 +18,12 @@ const slotStyle = (slot) => {
   const height = ((end - start) / (12 * 60)) * 100;
   return { top: `${Math.max(top, 0)}%`, height: `${Math.max(height, 7)}%` };
 };
->>>>>>> ea38a54 (Full rebuild: mobile app UI, calendar, notifications, performance)
 
 export default function Availability() {
   const { isAdmin, user } = useAuth();
   const [items, setItems] = useState([]);
   const [instructors, setInstructors] = useState([]);
-<<<<<<< HEAD
-=======
   const [selectedInstructor, setSelectedInstructor] = useState('all');
->>>>>>> ea38a54 (Full rebuild: mobile app UI, calendar, notifications, performance)
   const [form, setForm] = useState({ instructor: user?._id || '', dayOfWeek: 'Monday', startTime: '09:00', endTime: '17:00' });
   const [error, setError] = useState('');
 
@@ -48,8 +38,6 @@ export default function Availability() {
 
   useEffect(() => { load(); }, []);
 
-<<<<<<< HEAD
-=======
   const filteredItems = useMemo(() => {
     if (!isAdmin || selectedInstructor === 'all') return items;
     return items.filter((item) => item.instructor?._id === selectedInstructor);
@@ -60,19 +48,11 @@ export default function Availability() {
     return acc;
   }, {}), [filteredItems]);
 
->>>>>>> ea38a54 (Full rebuild: mobile app UI, calendar, notifications, performance)
   const submit = async (e) => {
     e.preventDefault();
     setError('');
     try {
-<<<<<<< HEAD
-      await api.post('/availability', {
-        ...form,
-        instructor: isAdmin ? form.instructor : user._id
-      });
-=======
       await api.post('/availability', { ...form, instructor: isAdmin ? form.instructor : user._id });
->>>>>>> ea38a54 (Full rebuild: mobile app UI, calendar, notifications, performance)
       await load();
     } catch (err) {
       setError(err.response?.data?.message || 'Could not save availability.');
@@ -86,17 +66,6 @@ export default function Availability() {
 
   return (
     <div className="page">
-<<<<<<< HEAD
-      <PageHeader title="Availability" subtitle="Set available working hours for instructors." />
-
-      <Card>
-        <div className="card-title"><h3>Add Availability</h3></div>
-        <form className="grid-form" onSubmit={submit}>
-          <ErrorMessage message={error} />
-          {isAdmin && (
-            <label>
-              Instructor
-=======
       <PageHeader title="Availability" subtitle="Set weekly working hours in a mobile calendar view." />
 
       <Card className="mobile-card compact-card">
@@ -105,43 +74,12 @@ export default function Availability() {
           <ErrorMessage message={error} />
           {isAdmin && (
             <label className="full">Instructor
->>>>>>> ea38a54 (Full rebuild: mobile app UI, calendar, notifications, performance)
               <select value={form.instructor} onChange={(e) => setForm({ ...form, instructor: e.target.value })} required>
                 <option value="">Select instructor</option>
                 {instructors.map((i) => <option key={i._id} value={i._id}>{i.name}</option>)}
               </select>
             </label>
           )}
-<<<<<<< HEAD
-          <label>
-            Day
-            <select value={form.dayOfWeek} onChange={(e) => setForm({ ...form, dayOfWeek: e.target.value })}>
-              {days.map((d) => <option key={d}>{d}</option>)}
-            </select>
-          </label>
-          <label>Start<input type="time" value={form.startTime} onChange={(e) => setForm({ ...form, startTime: e.target.value })} required /></label>
-          <label>End<input type="time" value={form.endTime} onChange={(e) => setForm({ ...form, endTime: e.target.value })} required /></label>
-          <div className="form-actions full"><button className="primary-btn">Add Availability</button></div>
-        </form>
-      </Card>
-
-      <Card>
-        <div className="card-title"><h3>Availability List</h3></div>
-        {!items.length ? (
-          <EmptyState title="No availability added" text="Create availability from the form above." />
-        ) : (
-          <div className="mobile-list compact">
-            {items.map((a) => (
-              <div className="list-card" key={a._id}>
-                <div>
-                  <strong>{a.dayOfWeek}</strong>
-                  <span>{a.startTime} - {a.endTime}</span>
-                  <span>{a.instructor?.name}</span>
-                </div>
-                <button className="danger-btn" onClick={() => remove(a._id)}>Delete</button>
-              </div>
-            ))}
-=======
           <label>Day
             <select value={form.dayOfWeek} onChange={(e) => setForm({ ...form, dayOfWeek: e.target.value })}>{days.map((d) => <option key={d}>{d}</option>)}</select>
           </label>
@@ -189,7 +127,6 @@ export default function Availability() {
                 </section>
               ))}
             </div>
->>>>>>> ea38a54 (Full rebuild: mobile app UI, calendar, notifications, performance)
           </div>
         )}
       </Card>

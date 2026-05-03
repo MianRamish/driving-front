@@ -1,8 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
-<<<<<<< HEAD
-=======
 import { Mail, MapPin, Phone, Search, UserRound } from 'lucide-react';
->>>>>>> ea38a54 (Full rebuild: mobile app UI, calendar, notifications, performance)
 import api from '../api.js';
 import { Badge, Card, EmptyState, ErrorMessage, PageHeader } from '../components/UI.jsx';
 import { useAuth } from '../context/AuthContext.jsx';
@@ -117,19 +114,12 @@ export default function Students() {
       <Card>
         <div className="toolbar">
           <h3>Student List</h3>
-<<<<<<< HEAD
-          <input className="search" placeholder="Search students..." value={query} onChange={(e) => setQuery(e.target.value)} />
-=======
           <div className="search-wrap"><Search size={17} /><input className="search" placeholder="Search students..." value={query} onChange={(e) => setQuery(e.target.value)} /></div>
->>>>>>> ea38a54 (Full rebuild: mobile app UI, calendar, notifications, performance)
         </div>
 
         {!filtered.length ? (
           <EmptyState title="No students found" text="Add a student or change your search." />
         ) : (
-<<<<<<< HEAD
-          <div className="responsive-table">
-=======
           <>
           <div className="student-card-grid">
             {filtered.map((s) => (
@@ -151,7 +141,6 @@ export default function Students() {
             ))}
           </div>
           <div className="responsive-table desktop-table">
->>>>>>> ea38a54 (Full rebuild: mobile app UI, calendar, notifications, performance)
             <table>
               <thead><tr><th>Name</th><th>Phone</th><th>Postcode</th><th>Instructor</th><th>Status</th><th></th></tr></thead>
               <tbody>
@@ -171,10 +160,7 @@ export default function Students() {
               </tbody>
             </table>
           </div>
-<<<<<<< HEAD
-=======
           </>
->>>>>>> ea38a54 (Full rebuild: mobile app UI, calendar, notifications, performance)
         )}
       </Card>
     </div>
