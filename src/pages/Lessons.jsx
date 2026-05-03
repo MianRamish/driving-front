@@ -90,10 +90,10 @@ export default function Lessons() {
       )}
 
       {isAdmin && showForm && (
-        <div className="sheet-backdrop" onClick={() => setShowForm(false)}>
-        <Card className="mobile-card compact-card bottom-sheet" onClick={(e) => e.stopPropagation()}>
+        <div className="sheet-backdrop lesson-sheet-backdrop" onMouseDown={() => setShowForm(false)}>
+        <Card className="mobile-card compact-card bottom-sheet lesson-form-sheet" onMouseDown={(e) => e.stopPropagation()}>
           <div className="card-title"><h3>Schedule lesson</h3><button className="icon-btn" onClick={() => setShowForm(false)} type="button"><X size={18} /></button></div>
-          <form className="grid-form mobile-first-form" onSubmit={submit}>
+          <form className="grid-form mobile-first-form lesson-popup-form" onSubmit={submit}>
             <ErrorMessage message={error} />
             <label>Student
               <select value={form.student} onChange={(e) => setForm({ ...form, student: e.target.value })} required>
@@ -112,7 +112,7 @@ export default function Lessons() {
             <label>End<input type="time" value={form.endTime} onChange={(e) => setForm({ ...form, endTime: e.target.value })} required /></label>
             <label>Pickup<input value={form.pickupLocation} onChange={(e) => setForm({ ...form, pickupLocation: e.target.value })} /></label>
             <label className="full">Notes<textarea value={form.notes} onChange={(e) => setForm({ ...form, notes: e.target.value })} /></label>
-            <div className="form-actions full"><button className="primary-btn">Schedule lesson</button></div>
+            <div className="form-actions full"><button className="primary-btn" type="submit">Schedule lesson</button></div>
           </form>
         </Card>
         </div>
