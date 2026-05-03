@@ -84,11 +84,11 @@ export default function Students() {
       <PageHeader title="Students" subtitle="Create, assign and manage student records." />
 
       {isAdmin && (
-        <Card>
+        <Card className="mobile-form-card student-form-card">
           <div className="card-title">
             <h3>{editing ? 'Edit Student' : 'Add Student'}</h3>
           </div>
-          <form className="grid-form" onSubmit={submit}>
+          <form className="grid-form mobile-first-form" onSubmit={submit}>
             <ErrorMessage message={error} />
             <label>First name<input value={form.firstName} onChange={(e) => setForm({ ...form, firstName: e.target.value })} required /></label>
             <label>Last name<input value={form.lastName} onChange={(e) => setForm({ ...form, lastName: e.target.value })} required /></label>
@@ -111,7 +111,7 @@ export default function Students() {
         </Card>
       )}
 
-      <Card>
+      <Card className="student-list-card">
         <div className="toolbar">
           <h3>Student List</h3>
           <div className="search-wrap"><Search size={17} /><input className="search" placeholder="Search students..." value={query} onChange={(e) => setQuery(e.target.value)} /></div>
