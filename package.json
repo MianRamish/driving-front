@@ -1,0 +1,25 @@
+{
+  "name": "driving-school-frontend",
+  "version": "1.0.0",
+  "description": "Driving school responsive frontend",
+  "scripts": {
+    "dev": "vite",
+<<<<<<< HEAD
+  "build": "vite build",
+  "preview": "vite preview"
+=======
+    "build": "vite build",
+    "preview": "vite preview"
+>>>>>>> ea38a54 (Full rebuild: mobile app UI, calendar, notifications, performance)
+  },
+  "dependencies": {
+    "@vitejs/plugin-react": "^4.3.1",
+    "axios": "^1.7.2",
+    "lucide-react": "^0.468.0",
+    "vite": "^5.3.5",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.25.1"
+  },
+  "devDependencies": {}
+}
