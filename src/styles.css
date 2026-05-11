@@ -265,55 +265,6 @@ body { min-height: 100%; overscroll-behavior-y: none; }
 .sheet-backdrop { position: fixed; inset: 0; z-index: 60; background: rgba(0,0,0,.55); display: grid; align-items: end; padding: 14px; }
 .bottom-sheet { width: min(760px, 100%); max-height: min(86vh, 760px); overflow: auto; margin: 0 auto; animation: sheetIn .22s ease both; }
 @keyframes sheetIn { from { transform: translateY(24px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-
-/* Lesson popup fixes and styling */
-.lesson-sheet-backdrop {
-  align-items: center;
-  padding: 18px;
-  backdrop-filter: blur(8px);
-}
-.lesson-form-sheet {
-  border: 1px solid rgba(220,191,0,.28);
-  box-shadow: 0 28px 80px rgba(0,0,0,.32);
-}
-.lesson-form-sheet .card-title {
-  position: sticky;
-  top: 0;
-  z-index: 2;
-  margin: -16px -16px 12px;
-  padding: 16px;
-  background: linear-gradient(180deg, #fff 70%, rgba(255,255,255,.92));
-  border-bottom: 1px solid var(--line);
-}
-.lesson-popup-form label {
-  gap: 7px;
-}
-.lesson-popup-form input,
-.lesson-popup-form select,
-.lesson-popup-form textarea {
-  background: #fffefa;
-  border-color: #ded5a6;
-}
-.lesson-popup-form input:focus,
-.lesson-popup-form select:focus,
-.lesson-popup-form textarea:focus {
-  outline: 3px solid rgba(220,191,0,.22);
-  border-color: var(--primary-dark);
-}
-.lesson-popup-form textarea {
-  min-height: 104px;
-  resize: vertical;
-}
-@media (max-width: 900px) {
-  .lesson-sheet-backdrop {
-    align-items: end;
-    padding: 10px;
-    padding-bottom: calc(10px + env(safe-area-inset-bottom));
-  }
-  .lesson-form-sheet {
-    max-height: min(88vh, 760px);
-  }
-}
 .segmented { display: inline-flex; margin-top: 8px; padding: 4px; border-radius: 999px; background: #f0ead0; }
 .segmented button { border: 0; border-radius: 999px; padding: 7px 12px; background: transparent; font-weight: 900; color: #333; }
 .segmented button.active { background: #111; color: var(--primary); }
@@ -351,200 +302,34 @@ body { min-height: 100%; overscroll-behavior-y: none; }
   .timeline-dot { display: none; }
 }
 
+.month-calendar-grid { display: grid; grid-template-columns: repeat(7, minmax(120px, 1fr)); gap: 10px; }
+.availability-month-grid { grid-template-columns: repeat(7, minmax(150px, 1fr)); }
+.month-calendar-cell { min-height: 132px; border: 1px solid var(--line); border-radius: 20px; background: #fbfaf2; padding: 12px; display: grid; align-content: start; gap: 10px; }
+.month-cell-head { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+.month-cell-head strong { font-size: 18px; }
+.month-cell-head span { color: var(--muted); font-size: 12px; font-weight: 800; }
+.mini-event-stack { display: grid; gap: 6px; }
+.mini-pill { display: inline-flex; align-items: center; min-height: 26px; border-radius: 999px; padding: 4px 8px; background: white; border: 1px solid rgba(0,0,0,.06); color: #111; font-size: 12px; font-weight: 800; }
+.muted-pill { color: var(--muted); background: #f6f0d7; }
+.mini-calendar-event { position: relative; display: grid; gap: 2px; border: 1px solid rgba(0,0,0,.06); background: white; border-radius: 14px; padding: 9px 36px 9px 10px; }
+.mini-calendar-event strong { font-size: 12px; }
+.mini-calendar-event span { color: var(--muted); font-size: 11px; }
+.mini-calendar-event button { position: absolute; top: 7px; right: 7px; width: 26px; height: 26px; border: 0; border-radius: 10px; display: grid; place-items: center; background: #f6f0d7; }
+.year-calendar-grid { display: grid; grid-template-columns: repeat(4, minmax(180px, 1fr)); gap: 12px; }
+.year-calendar-card { border: 1px solid var(--line); border-radius: 22px; background: #fbfaf2; padding: 14px; display: grid; align-content: start; gap: 10px; }
+.year-calendar-card h4 { margin: 0; font-size: 18px; }
+.year-card-count { margin: 0; color: var(--muted); font-weight: 800; }
+.year-day-list { display: grid; gap: 7px; }
+.year-day-row { display: flex; justify-content: space-between; align-items: center; gap: 8px; padding: 8px 10px; border-radius: 14px; background: white; border: 1px solid rgba(0,0,0,.05); }
+.year-day-row span { color: var(--muted); font-size: 12px; font-weight: 800; }
 
-/* Mobile overlap/layout fixes */
 @media (max-width: 900px) {
-  .main {
-    padding: 12px 12px calc(148px + env(safe-area-inset-bottom));
-    min-height: 100dvh;
-    background: linear-gradient(#111 0 168px, var(--bg) 168px);
-  }
-
-  .topbar {
-    margin-bottom: 12px;
-  }
-
-  .page {
-    gap: 16px;
-    padding-bottom: calc(28px + env(safe-area-inset-bottom));
-  }
-
-  .page-header {
-    padding: 0 2px 8px;
-  }
-
-  .page-header h2 {
-    line-height: 1.05;
-  }
-
-  .page-header p {
-    margin-top: 7px;
-    line-height: 1.35;
-  }
-
-  .mobile-form-card,
-  .student-list-card,
-  .lesson-calendar-card {
-    position: relative;
-    z-index: 1;
-  }
-
-  .student-form-card {
-    margin-top: 2px;
-  }
-
-  .student-form-card .card-title {
-    margin-bottom: 14px;
-  }
-
-  .student-form-card .grid-form {
-    gap: 13px;
-  }
-
-  .student-form-card input,
-  .student-form-card select,
-  .student-form-card textarea,
-  .lesson-popup-form input,
-  .lesson-popup-form select,
-  .lesson-popup-form textarea {
-    border-radius: 15px;
-  }
-
-  .student-form-card textarea {
-    min-height: 94px;
-  }
-
-  .student-form-card .form-actions {
-    padding-top: 4px;
-  }
-
-  .bottom-nav {
-    z-index: 80;
-  }
-
-  .fab-btn {
-    z-index: 75;
-  }
-
-  .sheet-backdrop {
-    z-index: 90;
-  }
+  .month-calendar-grid, .availability-month-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .year-calendar-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
 @media (max-width: 520px) {
-  .main {
-    background: linear-gradient(#111 0 172px, var(--bg) 172px);
-  }
-
-  .card {
-    border-radius: 22px;
-  }
-
-  .student-form-card {
-    padding: 15px;
-  }
-
-  .bottom-nav {
-    left: 12px;
-    right: 12px;
-    bottom: calc(12px + env(safe-area-inset-bottom));
-  }
-}
-
-/* Availability mobile layout fixes */
-.availability-form-card {
-  overflow: hidden;
-}
-.availability-calendar-card {
-  overflow: hidden;
-}
-.week-calendar-scroll {
-  max-width: 100%;
-}
-
-@media (max-width: 900px) {
-  .availability-form-card .grid-form {
-    grid-template-columns: 1fr;
-  }
-
-  .availability-form-card .form-actions .primary-btn {
-    width: 100%;
-  }
-
-  .availability-calendar-card .calendar-toolbar {
-    gap: 10px;
-  }
-
-  .availability-calendar-card .calendar-toolbar select {
-    width: 100%;
-  }
-
-  .availability-calendar-card .week-calendar-scroll {
-    overflow-x: visible;
-    padding-bottom: 0;
-  }
-
-  .availability-calendar-card .week-calendar {
-    min-width: 0;
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 12px;
-  }
-
-  .availability-calendar-card .time-rail {
-    display: none;
-  }
-
-  .availability-calendar-card .week-day {
-    min-width: 0;
-    border: 1px solid var(--line);
-    border-radius: 20px;
-    overflow: hidden;
-    background: #fffdfa;
-  }
-
-  .availability-calendar-card .week-day-head {
-    height: auto;
-    min-height: 44px;
-    border-radius: 0;
-    padding: 10px 12px;
-  }
-
-  .availability-calendar-card .day-track {
-    height: auto;
-    min-height: 54px;
-    border: 0;
-    border-radius: 0;
-    padding: 10px;
-    display: grid;
-    gap: 8px;
-    background: #fffdfa;
-  }
-
-  .availability-calendar-card .day-track i {
-    display: none;
-  }
-
-  .availability-calendar-card .availability-block {
-    position: relative;
-    top: auto !important;
-    left: auto;
-    right: auto;
-    height: auto !important;
-    min-height: 48px;
-    border-radius: 16px;
-    padding: 11px 42px 11px 12px;
-    overflow: visible;
-  }
-
-  .availability-calendar-card .availability-block strong {
-    font-size: 13px;
-  }
-}
-
-@media (max-width: 520px) {
-  .availability-form-card,
-  .availability-calendar-card {
-    padding: 15px;
-  }
+  .month-calendar-grid, .availability-month-grid, .year-calendar-grid { grid-template-columns: 1fr; }
+  .segmented { max-width: 100%; overflow-x: auto; }
+  .segmented button { white-space: nowrap; }
 }
