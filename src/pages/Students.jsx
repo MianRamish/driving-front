@@ -15,7 +15,8 @@ const initial = {
 };
 
 export default function Students() {
-  const { isAdmin } = useAuth();
+  const { isAdmin, isInstructor } = useAuth();
+  const canManageStudents = isAdmin || isInstructor;
   const [students, setStudents] = useState([]);
   const [instructors, setInstructors] = useState([]);
   const [form, setForm] = useState(initial);
@@ -32,7 +33,7 @@ export default function Students() {
     setInstructors(instructorRes.data);
   };
 
-  useEffect(() => { load(); }, []);
+  useEffect(() => { load(); }, [isAdmin]);
 
   const filtered = useMemo(() => {
     const q = query.toLowerCase();
@@ -46,10 +47,11 @@ export default function Students() {
     setError('');
 
     try {
+      const payload = isAdmin ? form : { ...form, assignedInstructor: undefined };
       if (editing) {
-        await api.put(`/students/${editing}`, form);
+        await api.put(`/students/${editing}`, payload);
       } else {
-        await api.post('/students', form);
+        await api.post('/students', payload);
       }
       setForm(initial);
       setEditing(null);
@@ -81,27 +83,29 @@ export default function Students() {
 
   return (
     <div className="page">
-      <PageHeader title="Students" subtitle="Create, assign and manage student records." />
+      <PageHeader title="Students" subtitle={isAdmin ? 'Create, assign and manage student records.' : 'Create and manage your own student records.'} />
 
-      {isAdmin && (
-        <Card className="mobile-form-card student-form-card">
+      {canManageStudents && (
+        <Card>
           <div className="card-title">
             <h3>{editing ? 'Edit Student' : 'Add Student'}</h3>
           </div>
-          <form className="grid-form mobile-first-form" onSubmit={submit}>
+          <form className="grid-form" onSubmit={submit}>
             <ErrorMessage message={error} />
             <label>First name<input value={form.firstName} onChange={(e) => setForm({ ...form, firstName: e.target.value })} required /></label>
             <label>Last name<input value={form.lastName} onChange={(e) => setForm({ ...form, lastName: e.target.value })} required /></label>
             <label>Email<input type="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} /></label>
             <label>Phone<input value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} required /></label>
             <label>Postal code<input value={form.postalCode} onChange={(e) => setForm({ ...form, postalCode: e.target.value })} required /></label>
-            <label>
-              Instructor
-              <select value={form.assignedInstructor} onChange={(e) => setForm({ ...form, assignedInstructor: e.target.value })}>
-                <option value="">Auto assign / Unassigned</option>
-                {instructors.map((i) => <option key={i._id} value={i._id}>{i.name}</option>)}
-              </select>
-            </label>
+            {isAdmin && (
+              <label>
+                Instructor
+                <select value={form.assignedInstructor} onChange={(e) => setForm({ ...form, assignedInstructor: e.target.value })}>
+                  <option value="">Auto assign / Unassigned</option>
+                  {instructors.map((i) => <option key={i._id} value={i._id}>{i.name}</option>)}
+                </select>
+              </label>
+            )}
             <label className="full">Notes<textarea value={form.notes} onChange={(e) => setForm({ ...form, notes: e.target.value })} /></label>
             <div className="form-actions full">
               <button className="primary-btn">{editing ? 'Update Student' : 'Create Student'}</button>
@@ -111,7 +115,7 @@ export default function Students() {
         </Card>
       )}
 
-      <Card className="student-list-card">
+      <Card>
         <div className="toolbar">
           <h3>Student List</h3>
           <div className="search-wrap"><Search size={17} /><input className="search" placeholder="Search students..." value={query} onChange={(e) => setQuery(e.target.value)} /></div>
@@ -135,7 +139,7 @@ export default function Students() {
                     <span><MapPin size={14} />{s.postalCode}</span>
                     {s.email && <span><Mail size={14} />{s.email}</span>}
                   </div>
-                  {isAdmin && <div className="form-actions"><button className="small-btn" onClick={() => startEdit(s)}>Edit</button><button className="danger-btn" onClick={() => remove(s._id)}>Delete</button></div>}
+                  {canManageStudents && <div className="form-actions"><button className="small-btn" onClick={() => startEdit(s)}>Edit</button><button className="danger-btn" onClick={() => remove(s._id)}>Delete</button></div>}
                 </div>
               </article>
             ))}
@@ -152,8 +156,8 @@ export default function Students() {
                     <td data-label="Instructor">{s.assignedInstructor?.name || 'Unassigned'}</td>
                     <td data-label="Status"><Badge>{s.status}</Badge></td>
                     <td className="actions">
-                      {isAdmin && <button className="small-btn" onClick={() => startEdit(s)}>Edit</button>}
-                      {isAdmin && <button className="danger-btn" onClick={() => remove(s._id)}>Delete</button>}
+                      {canManageStudents && <button className="small-btn" onClick={() => startEdit(s)}>Edit</button>}
+                      {canManageStudents && <button className="danger-btn" onClick={() => remove(s._id)}>Delete</button>}
                     </td>
                   </tr>
                 ))}
