@@ -53,11 +53,11 @@ export default function Login() {
           </button>
         </form>
 
-        <div className="demo-box">
+        {/* <div className="demo-box">
           <strong>Demo accounts</strong>
           <span>Admin: admin@drivingschool.com / Admin123</span>
           <span>Instructor: john@drivingschool.com / Instructor123</span>
-        </div>
+        </div> */}
       </section>
     </main>
   );
