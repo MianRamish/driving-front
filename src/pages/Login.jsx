@@ -4,7 +4,7 @@ import { ErrorMessage } from '../components/UI.jsx';
 
 export default function Login() {
   const { login, loading } = useAuth();
-  const [form, setForm] = useState({ email: 'admin@drivingschool.com', password: 'Admin123' });
+  const [form, setForm] = useState({ email: '', password: '' });
   const [error, setError] = useState('');
 
   const submit = async (e) => {
