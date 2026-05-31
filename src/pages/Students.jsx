@@ -163,7 +163,7 @@ export default function Students() {
             <label>Last name<input value={form.lastName} onChange={(e) => setForm({ ...form, lastName: e.target.value })} required /></label>
             <label>Email<input type="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} /></label>
             <label>Phone<input value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} required /></label>
-            <p className="form-help full">Use international format for SMS notifications, for example +923039358816.</p>
+            <p className="form-help full">Use international format for SMS notifications, for example +44XXXXXXX.</p>
             <label>Postal code<input value={form.postalCode} onChange={(e) => setForm({ ...form, postalCode: e.target.value })} required /></label>
             <label>
               Instructor
