@@ -344,3 +344,318 @@ body { min-height: 100%; overscroll-behavior-y: none; }
 
 
 .form-help { margin: -4px 0 4px; color: #64748b; font-size: 13px; line-height: 1.45; }
+
+/* Mobile responsive fixes */
+@media (max-width: 900px) {
+  html,
+  body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  #root,
+  .app-shell,
+  .main,
+  .page,
+  .card {
+    min-width: 0;
+  }
+
+  .main {
+    width: 100%;
+    padding-left: max(12px, env(safe-area-inset-left));
+    padding-right: max(12px, env(safe-area-inset-right));
+  }
+
+  .topbar {
+    gap: 10px;
+  }
+
+  .topbar-title {
+    min-width: 0;
+    flex: 1;
+  }
+
+  .topbar-title h1,
+  .topbar-title p,
+  .page-header h2,
+  .page-header p,
+  .card-title h3,
+  .toolbar h3,
+  .calendar-toolbar h3 {
+    overflow-wrap: anywhere;
+  }
+
+  .page-header {
+    display: grid;
+    gap: 12px;
+    align-items: stretch;
+  }
+
+  .page-header > * {
+    min-width: 0;
+  }
+
+  .page-header .primary-btn,
+  .page-header .ghost-btn,
+  .page-header .small-btn {
+    width: 100%;
+  }
+
+  .toolbar,
+  .card-title,
+  .calendar-toolbar {
+    width: 100%;
+  }
+
+  .toolbar > *,
+  .card-title > *,
+  .calendar-toolbar > * {
+    min-width: 0;
+  }
+
+  .search-wrap,
+  .search,
+  .calendar-filter-row,
+  .calendar-filter-row select {
+    width: 100%;
+    max-width: none;
+  }
+
+  .form-actions {
+    display: grid;
+    grid-template-columns: 1fr;
+    width: 100%;
+  }
+
+  .form-actions button,
+  .lesson-actions button,
+  .lesson-actions select {
+    width: 100%;
+  }
+
+  .list-card,
+  .student-app-card,
+  .lesson-day,
+  .timeline-body,
+  .notification-item {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
+  .student-card-head {
+    display: grid;
+    grid-template-columns: 1fr auto;
+  }
+
+  .student-card-head strong,
+  .student-card-head span,
+  .student-meta-grid span {
+    overflow-wrap: anywhere;
+  }
+
+  .sheet-backdrop {
+    align-items: end;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .bottom-sheet {
+    width: 100%;
+    max-width: 100%;
+    max-height: calc(100dvh - 24px - env(safe-area-inset-top));
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+
+  .wide-segmented {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 4px;
+    border-radius: 18px;
+  }
+
+  .wide-segmented button {
+    width: 100%;
+    border-radius: 14px;
+  }
+
+  .responsive-table {
+    width: 100%;
+    overflow: visible;
+  }
+
+  .responsive-table td {
+    align-items: flex-start;
+  }
+
+  .responsive-table td::before {
+    min-width: 86px;
+    flex: 0 0 86px;
+  }
+
+  .responsive-table td > *:last-child {
+    min-width: 0;
+    text-align: right;
+    overflow-wrap: anywhere;
+  }
+
+  .month-calendar {
+    min-width: 620px;
+  }
+
+  .calendar-card {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .month-day {
+    min-height: 92px;
+  }
+
+  .week-calendar-scroll {
+    margin-left: -4px;
+    margin-right: -4px;
+    padding-left: 4px;
+    padding-right: 4px;
+  }
+
+  .notification-panel {
+    left: 10px;
+    right: 10px;
+    width: auto;
+  }
+}
+
+@media (max-width: 640px) {
+  .login-page {
+    align-items: start;
+    padding: 16px;
+    padding-top: max(22px, env(safe-area-inset-top));
+    overflow-y: auto;
+  }
+
+  .login-card {
+    width: 100%;
+    border-radius: 24px;
+    padding: 20px;
+  }
+
+  .login-brand {
+    align-items: flex-start;
+  }
+
+  .login-brand h1 {
+    font-size: 22px;
+  }
+
+  .topbar h1 {
+    max-width: none;
+    font-size: 22px;
+  }
+
+  .topbar-title span {
+    font-size: 11px;
+  }
+
+  .icon-btn {
+    width: 44px;
+    min-width: 44px;
+    height: 44px;
+  }
+
+  .card {
+    border-radius: 20px;
+    padding: 14px;
+  }
+
+  .hero-card {
+    min-height: 0;
+  }
+
+  .quick-actions {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    overflow: visible;
+  }
+
+  .quick-action {
+    min-width: 0;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .month-calendar {
+    min-width: 560px;
+  }
+
+  .bottom-nav {
+    left: 8px;
+    right: 8px;
+    bottom: 8px;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    border-radius: 20px;
+  }
+
+  .bottom-nav-item {
+    min-height: 54px;
+    font-size: 10px;
+    border-radius: 15px;
+  }
+
+  .bottom-nav-item svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .fab-btn {
+    width: 56px;
+    height: 56px;
+    right: 14px;
+    bottom: calc(88px + env(safe-area-inset-bottom));
+    border-radius: 20px;
+  }
+
+  .sheet-backdrop {
+    padding: 8px;
+    padding-bottom: calc(8px + env(safe-area-inset-bottom));
+  }
+
+  .bottom-sheet {
+    border-radius: 22px;
+  }
+
+  .notification-head {
+    align-items: flex-start;
+  }
+
+  .notification-head .text-btn {
+    white-space: nowrap;
+  }
+}
+
+@media (max-width: 380px) {
+  .main {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .card {
+    padding: 12px;
+  }
+
+  .bottom-nav {
+    gap: 2px;
+    padding: 6px;
+  }
+
+  .bottom-nav-item span {
+    display: none;
+  }
+
+  .bottom-nav-item {
+    min-height: 48px;
+  }
+}
