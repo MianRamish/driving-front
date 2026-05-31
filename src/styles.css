@@ -210,7 +210,7 @@ td span { display: block; color: var(--muted); font-size: 13px; margin-top: 3px;
 
 /* Mobile-app polish for iOS/Android shells */
 html { min-height: 100%; background: #101010; }
-body { min-height: 100%; overscroll-behavior-y: none; }
+body { min-height: 100%; overflow-y: auto; overscroll-behavior-y: auto; touch-action: pan-y; }
 #root { min-height: 100vh; min-height: 100dvh; }
 .app-shell { min-height: 100dvh; }
 .topbar { padding-top: env(safe-area-inset-top); }
@@ -345,6 +345,20 @@ body { min-height: 100%; overscroll-behavior-y: none; }
 
 .form-help { margin: -4px 0 4px; color: #64748b; font-size: 13px; line-height: 1.45; }
 
+/* Scroll safety fix */
+html,
+body,
+#root {
+  height: auto;
+  min-height: 100%;
+  overflow-y: auto;
+}
+
+body {
+  touch-action: pan-y;
+  -webkit-overflow-scrolling: touch;
+}
+
 /* Mobile responsive fixes */
 @media (max-width: 900px) {
   html,
@@ -352,6 +366,7 @@ body { min-height: 100%; overscroll-behavior-y: none; }
     width: 100%;
     max-width: 100%;
     overflow-x: hidden;
+    overflow-y: auto;
   }
 
   #root,
