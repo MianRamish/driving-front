@@ -55,6 +55,7 @@ export default function Instructors() {
           <label>Email<input type="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} required disabled={Boolean(editing)} /></label>
           {!editing && <label>Password<input value={form.password} onChange={(e) => setForm({ ...form, password: e.target.value })} required /></label>}
           <label>Phone<input value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} /></label>
+          <p className="form-help full">Use international format for SMS notifications, for example +923039358816.</p>
           <label className="full">Postal codes <input placeholder="E1, E2, SW1" value={form.postalCodes} onChange={(e) => setForm({ ...form, postalCodes: e.target.value })} /></label>
           <div className="form-actions full">
             <button className="primary-btn">{editing ? 'Update Instructor' : 'Create Instructor'}</button>
