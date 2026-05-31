@@ -1,6 +1,11 @@
 const lessonKey = (lesson) => `kudos-reminder-${lesson._id}`;
 
-export const canUseNotifications = () => 'Notification' in window && 'serviceWorker' in navigator;
+export const canUseNotifications = () => (
+  typeof window !== 'undefined'
+  && 'Notification' in window
+  && 'serviceWorker' in navigator
+  && window.isSecureContext
+);
 
 export async function registerNotificationWorker() {
   if (!canUseNotifications()) return null;
@@ -20,27 +25,58 @@ export async function requestNotificationPermission() {
 
 export async function showDeviceNotification(title, body, url = '/lessons') {
   if (!canUseNotifications() || Notification.permission !== 'granted') return false;
-  const registration = await navigator.serviceWorker.ready;
-  if (registration?.active) {
-    registration.active.postMessage({ type: 'SHOW_NOTIFICATION', title, body, url });
-    return true;
+
+  try {
+    const registration = await registerNotificationWorker();
+    if (registration?.showNotification) {
+      await registration.showNotification(title || 'Kudos Driving School', {
+        body: body || '',
+        icon: '/kudos-icon.svg',
+        badge: '/kudos-icon.svg',
+        data: { url }
+      });
+      return true;
+    }
+  } catch (error) {
+    console.warn('Push alert failed:', error);
   }
-  return false;
+
+  try {
+    const notification = new Notification(title || 'Kudos Driving School', {
+      body: body || '',
+      icon: '/kudos-icon.svg',
+      data: { url }
+    });
+    notification.onclick = () => {
+      window.focus();
+      window.location.assign(url || '/');
+      notification.close();
+    };
+    return true;
+  } catch (error) {
+    console.warn('Browser notification failed:', error);
+    return false;
+  }
 }
 
 export function scheduleLessonReminders(lessons = []) {
-  if (!Array.isArray(lessons)) return;
-  lessons.filter((lesson) => lesson.status === 'scheduled' && lesson.date && lesson.startTime).forEach((lesson) => {
-    const key = lessonKey(lesson);
-    if (sessionStorage.getItem(key)) return;
-    const lessonStart = new Date(`${lesson.date}T${lesson.startTime}`);
-    const reminderAt = lessonStart.getTime() - 30 * 60 * 1000;
-    const delay = reminderAt - Date.now();
-    if (delay <= 0 || delay > 2147483647) return;
-    sessionStorage.setItem(key, 'scheduled');
-    window.setTimeout(() => {
-      const student = `${lesson.student?.firstName || 'Student'} ${lesson.student?.lastName || ''}`.trim();
-      showDeviceNotification('Lesson reminder', `${student} lesson starts at ${lesson.startTime}.`, '/lessons');
-    }, delay);
-  });
+  if (!Array.isArray(lessons) || typeof window === 'undefined') return;
+
+  lessons
+    .filter((lesson) => lesson.status === 'scheduled' && lesson.date && lesson.startTime)
+    .forEach((lesson) => {
+      const key = lessonKey(lesson);
+      if (sessionStorage.getItem(key)) return;
+
+      const lessonStart = new Date(`${lesson.date}T${lesson.startTime}`);
+      const reminderAt = lessonStart.getTime() - 30 * 60 * 1000;
+      const delay = reminderAt - Date.now();
+      if (Number.isNaN(delay) || delay <= 0 || delay > 2147483647) return;
+
+      sessionStorage.setItem(key, 'scheduled');
+      window.setTimeout(() => {
+        const student = `${lesson.student?.firstName || 'Student'} ${lesson.student?.lastName || ''}`.trim();
+        showDeviceNotification('Lesson reminder', `${student} lesson starts at ${lesson.startTime}.`, '/lessons');
+      }, delay);
+    });
 }
