@@ -10,16 +10,29 @@ export default function NotificationBell() {
   const [items, setItems] = useState([]);
   const [unread, setUnread] = useState(0);
   const [permission, setPermission] = useState(typeof Notification !== 'undefined' ? Notification.permission : 'unsupported');
+  const [error, setError] = useState('');
   const seenIds = useRef(new Set());
+  const firstLoad = useRef(true);
+
+  const notificationUrl = (item) => (item.lesson ? '/lessons' : '/students');
 
   const load = async () => {
-    const { data } = await api.get('/notifications?limit=20');
-    const nextItems = Array.isArray(data) ? data : data.items || [];
-    const fresh = nextItems.filter((item) => !seenIds.current.has(item._id) && !item.read);
-    nextItems.forEach((item) => seenIds.current.add(item._id));
-    setItems(nextItems);
-    setUnread(typeof data.unread === 'number' ? data.unread : nextItems.filter((item) => !item.read).length);
-    fresh.forEach((item) => showDeviceNotification(item.title, item.message, '/lessons'));
+    try {
+      const { data } = await api.get('/notifications?limit=20');
+      const nextItems = Array.isArray(data) ? data : data.items || [];
+      const fresh = firstLoad.current
+        ? []
+        : nextItems.filter((item) => !seenIds.current.has(item._id) && !item.read);
+
+      nextItems.forEach((item) => seenIds.current.add(item._id));
+      firstLoad.current = false;
+      setItems(nextItems);
+      setUnread(typeof data.unread === 'number' ? data.unread : nextItems.filter((item) => !item.read).length);
+      setError('');
+      fresh.forEach((item) => showDeviceNotification(item.title, item.message, notificationUrl(item)));
+    } catch (err) {
+      setError('Could not load notifications.');
+    }
   };
 
   useEffect(() => {
@@ -51,7 +64,7 @@ export default function NotificationBell() {
   const openNotification = async (item) => {
     if (!item.read) await api.put(`/notifications/${item._id}/read`);
     setOpen(false);
-    window.location.href = '/lessons';
+    window.location.href = notificationUrl(item);
   };
 
   return (
@@ -74,6 +87,10 @@ export default function NotificationBell() {
           {permission !== 'granted' && permission !== 'unsupported' && (
             <button className="primary-btn full-width" onClick={enableNotifications}>Enable push alerts</button>
           )}
+          {permission === 'unsupported' && (
+            <p className="muted-text">Push alerts need HTTPS and browser notification support.</p>
+          )}
+          {error && <p className="form-error">{error}</p>}
 
           {!items.length ? (
             <p className="muted-text">No notifications yet.</p>
@@ -86,7 +103,7 @@ export default function NotificationBell() {
                     <small>{formatTime(item.createdAt)}</small>
                   </div>
                   <span>{item.message}</span>
-                  {item.lesson && <em><ExternalLink size={13} /> Open lesson calendar</em>}
+                  <em><ExternalLink size={13} /> {item.lesson ? 'Open lesson calendar' : 'Open students'}</em>
                 </button>
               ))}
             </div>
