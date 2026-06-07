@@ -38,8 +38,8 @@ export default function Dashboard() {
       </section>
 
       <div className="quick-actions">
-        <Link to="/lessons" className="quick-action"><CalendarDays size={18} /><span>Lesson</span></Link>
-        <Link to="/availability" className="quick-action"><Clock3 size={18} /><span>Availability</span></Link>
+        <Link to="/lessons" className="quick-action"><CalendarDays size={18} /><span>Lessons</span></Link>
+        <Link to="/availability" className="quick-action"><Clock3 size={18} /><span>Calender</span></Link>
         <Link to="/students" className="quick-action"><GraduationCap size={18} /><span>Students</span></Link>
         {isAdmin && <Link to="/instructors" className="quick-action"><Plus size={18} /><span>Team</span></Link>}
       </div>
