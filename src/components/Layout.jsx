@@ -28,7 +28,7 @@ export default function Layout() {
           <NavLink onClick={close} className={linkClass} to="/" end><LayoutDashboard size={18} /> Dashboard</NavLink>
           <NavLink onClick={close} className={linkClass} to="/students"><GraduationCap size={18} /> Students</NavLink>
           {isAdmin && <NavLink onClick={close} className={linkClass} to="/instructors"><Users size={18} /> Instructors</NavLink>}
-          <NavLink onClick={close} className={linkClass} to="/availability"><Clock3 size={18} /> Availability</NavLink>
+          <NavLink onClick={close} className={linkClass} to="/availability"><Clock3 size={18} /> Calender</NavLink>
           <NavLink onClick={close} className={linkClass} to="/lessons"><CalendarDays size={18} /> Lessons</NavLink>
         </nav>
 
