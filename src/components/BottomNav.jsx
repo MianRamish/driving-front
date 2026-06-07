@@ -13,7 +13,7 @@ export default function BottomNav() {
       <NavLink className={itemClass} to="/" end><LayoutDashboard size={19} /><span>Home</span></NavLink>
       <NavLink className={itemClass} to="/students"><GraduationCap size={19} /><span>Students</span></NavLink>
       {isAdmin && <NavLink className={itemClass} to="/instructors"><Users size={19} /><span>Team</span></NavLink>}
-      <NavLink className={itemClass} to="/availability"><Clock3 size={19} /><span>Slots</span></NavLink>
+      <NavLink className={itemClass} to="/availability"><Clock3 size={19} /><span>Calender</span></NavLink>
       <NavLink className={itemClass} to="/lessons"><CalendarDays size={19} /><span>Lessons</span></NavLink>
     </nav>
   );
