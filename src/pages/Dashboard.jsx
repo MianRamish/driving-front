@@ -23,6 +23,7 @@ export default function Dashboard() {
 
   return (
     <div className="page dashboard-page">
+      <img src="https://kudosdrivingschool.co.uk/wp-content/uploads/2025/05/rsz_kudos_new_logo_final_1-01.png" width:"150px" height="50px"/>
       <PageHeader
         title="Home"
         subtitle={isAdmin ? 'Live mobile command center for your school.' : 'Your students, schedule and reminders in one place.'}
@@ -31,7 +32,7 @@ export default function Dashboard() {
       <section className="hero-card app-card">
         <div className="hero-copy">
           <span className="eyebrow">Kudos Driving School</span>
-          <img src="https://kudosdrivingschool.co.uk/wp-content/uploads/2025/05/rsz_kudos_new_logo_final_1-01.png" />
+          
           <h3>{isAdmin ? 'School operations' : `Ready for today, ${user?.name?.split(' ')[0] || 'Instructor'}?`}</h3>
           <p>{nextLesson ? `Next lesson: ${nextLesson.startTime} with ${nextLesson.student?.firstName || 'student'}.` : 'No upcoming lesson found. Keep your availability updated.'}</p>
         </div>
