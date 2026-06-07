@@ -134,7 +134,7 @@ export default function Availability() {
 
   return (
     <div className="page">
-      <PageHeader title="Availability" subtitle="Click any calendar date to add availability or schedule a lesson." />
+      <PageHeader title="Calender" subtitle="Click any calendar date to add availability or schedule a lesson." />
 
       <Card className="mobile-card calendar-card">
         <div className="calendar-toolbar sticky-toolbar">
